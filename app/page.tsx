@@ -1,69 +1,130 @@
 import Image from "next/image";
+import { ProjectCard } from "@/components/project-card";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { projects, site, techStack } from "@/lib/site";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <a className="skip-link" href="#content">
+        Skip to content
+      </a>
+      <SiteHeader />
+      <main id="content">
+        <section className="section hero">
+          <div className="container hero-split">
+            <div className="reveal">
+              <p className="eyebrow">Full-stack engineer · Los Angeles</p>
+              <h1>Ex-chef turned engineer. Same standards, different craft.</h1>
+              <p className="lead">
+                I build full-stack apps with TypeScript, React, and Node. Open to
+                frontend and full-stack roles.
+              </p>
+              <div className="hero-cta">
+                <a className="btn btn-primary" href="#work">
+                  See my work
+                </a>
+                <a
+                  className="btn btn-secondary"
+                  href={site.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub profile
+                </a>
+              </div>
+            </div>
+            <div className="reveal hero-avatar">
+              <Image
+                className="avatar"
+                src={site.avatar.src}
+                alt={site.avatar.alt}
+                width={site.avatar.width}
+                height={site.avatar.height}
+                sizes="(max-width: 333px) 260px, (max-width: 448px) 78vw, 350px"
+                preload
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="about">
+          <div className="container">
+            <div className="grid-2-1 reveal">
+              <div>
+                <p className="eyebrow">About</p>
+                <h2>I care more about clarity than cleverness.</h2>
+                <p className="lead about-lead">
+                  Before I wrote code, I cooked in Michelin-star kitchens. That
+                  experience shaped how I build software: clean execution,
+                  repeatable systems, and zero tolerance for sloppy details.
+                </p>
+                <p className="lead about-lead">
+                  I&apos;m focused on full-stack JavaScript and TypeScript, with
+                  React and Next.js on the frontend and Node on the backend. I&apos;m
+                  also deepening my Python skills to round out the stack.
+                </p>
+              </div>
+              <div className="stack">
+                <p className="eyebrow">Tech stack</p>
+                <div className="stack-row">
+                  {techStack.map((item) => (
+                    <span className="tag" key={item}>
+                      {item}
+                    </span>
+                  ))}
+                </div>
+                <p className="meta">
+                  {site.location} · Open to roles
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="work">
+          <div className="container">
+            <div className="reveal section-head">
+              <p className="eyebrow">Selected work</p>
+              <h2>Projects I&apos;ve built or contributed to.</h2>
+            </div>
+            <div className="grid-2">
+              {projects.map((project) => (
+                <ProjectCard key={project.name} project={project} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="contact">
+          <div className="container reveal contact">
+            <p className="eyebrow">Get in touch</p>
+            <h2>Let&apos;s build something.</h2>
+            <p className="lead contact-lead">
+              I&apos;m open to full-stack and frontend engineering roles. If
+              you&apos;re looking for someone who shows up prepared and ships
+              clean code, reach out.
+            </p>
+            <div className="contact-grid">
+              <a className="btn btn-primary" href={`mailto:${site.email}`}>
+                Email me directly
+              </a>
+              <a
+                className="btn btn-secondary"
+                href={site.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Message on GitHub
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
-    </div>
+      <SiteFooter />
+      <ScrollReveal />
+    </>
   );
 }
